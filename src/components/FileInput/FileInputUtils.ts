@@ -1,13 +1,9 @@
+import { FileData } from '@/types'
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 export const ACCEPT_TYPE = ['text/plain']
 export const MAX_SIZE = 10485760
-export type FileData = {
-  name: string
-  size: number
-  format: string
-  data: string | null
-}
 
 export const preventAll = (
   e: React.DragEvent<HTMLDivElement> | React.ChangeEvent<HTMLInputElement>,
@@ -22,6 +18,10 @@ export const readFile = async (file: File): Promise<string> => {
     reader.onloadend = function (ev) { res(ev.target?.result as string) };
     reader.readAsText(file); 
   })
+}
+
+export const countLines = (fileString: string): number => {
+  return fileString.split('\n').length 
 }
 
 export const handleFile = async (file: File | null): Promise<FileData> => {
@@ -39,6 +39,7 @@ export const handleFile = async (file: File | null): Promise<FileData> => {
   }
 
   return {
+    id: uuidv4(),
     data: shouldFetchData ? await readFile(file) : null,
     name: file.name,
     format: file.type,

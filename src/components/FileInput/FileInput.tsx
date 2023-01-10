@@ -1,3 +1,4 @@
+import { FileData } from '@/types'
 import React from 'react'
 import { Loader } from '../Loader'
 
@@ -6,7 +7,6 @@ import {
   getDropData,
   getUploadData,
   preventAll,
-  FileData,
 } from './FileInputUtils'
 
 type Props = {
