@@ -11,10 +11,13 @@ type Props = {
 export const FileList: React.FC<Props> = ({ name }) => {
   const [{ value }, {}, { setValue }] = useField<FileData[]>(name)
   const [more, setMore] = useState<FileData | null>(null)
-  const removeFile = useCallback((id: string) => {
-    setValue(value.filter(({ id: fileId }) => fileId !== id))
-    setMore(null)
-  }, [value, setValue])
+  const removeFile = useCallback(
+    (id: string) => {
+      setValue(value.filter(({ id: fileId }) => fileId !== id))
+      setMore(null)
+    },
+    [value, setValue],
+  )
 
   return (
     <div className="">
@@ -60,12 +63,13 @@ export const FileList: React.FC<Props> = ({ name }) => {
                   {value.map((item) => (
                     <tr key={item.id}>
                       <td className="flex items-center whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                        {!item.data || item.data.length === 0 && (
-                          <ExclamationTriangleIcon
-                            className="mr-2 h-6 w-6 text-yellow-400"
-                            aria-hidden="true"
-                          />
-                        )}
+                        {!item.data ||
+                          (item.data.length === 0 && (
+                            <ExclamationTriangleIcon
+                              className="mr-2 h-6 w-6 text-yellow-400"
+                              aria-hidden="true"
+                            />
+                          ))}
                         {item.name}
                       </td>
                       <td className="hidden whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500 sm:table-cell">

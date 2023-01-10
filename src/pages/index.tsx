@@ -14,16 +14,17 @@ const SCHEMA = object().shape({
       'valid files',
       'Invalid file uploaded. Please remove the file before continuing.',
       ((data: FileData[]) => {
-        return !data.some(item => !item.data || item.data.length === 0)
-      }) as any
+        return !data.some((item) => !item.data || item.data.length === 0)
+      }) as any,
     )
-    .test(
-      'email amount',
-      `Maximum of ${MAX_AMOUNT} email adresses allowed`,
-      ((data: FileData[]) => {
-        return data.reduce((res, item) => res + (item.data || []).length, 0) <= MAX_AMOUNT 
-      }) as any
-    ),
+    .test('email amount', `Maximum of ${MAX_AMOUNT} email adresses allowed`, ((
+      data: FileData[],
+    ) => {
+      return (
+        data.reduce((res, item) => res + (item.data || []).length, 0) <=
+        MAX_AMOUNT
+      )
+    }) as any),
 })
 
 const INITIAL_VALUES = {

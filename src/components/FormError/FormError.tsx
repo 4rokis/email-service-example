@@ -6,7 +6,7 @@ type Props = {
 }
 
 export const FormError: React.FC<Props> = ({ name }) => {
-  const [,{ error, touched }] = useField(name)
+  const [, { error, touched }] = useField(name)
   if (!touched || !error) {
     return null
   }

@@ -9,7 +9,11 @@ type Props = {
   onRemove: (id: string) => void
 }
 
-export const FileInfoModal: React.FC<Props> = ({ data: newData, onClose, onRemove }) => {
+export const FileInfoModal: React.FC<Props> = ({
+  data: newData,
+  onClose,
+  onRemove,
+}) => {
   const cancelButtonRef = useRef(null)
   const [data, setData] = useState(newData)
 
@@ -24,7 +28,12 @@ export const FileInfoModal: React.FC<Props> = ({ data: newData, onClose, onRemov
   }, [newData])
 
   return (
-    <Modal open={Boolean(newData)} title={"Emails"} initialFocus={cancelButtonRef} onClose={onClose}>
+    <Modal
+      open={Boolean(newData)}
+      title={'Emails'}
+      initialFocus={cancelButtonRef}
+      onClose={onClose}
+    >
       {(!data?.data || data?.data?.length === 0) && (
         <Alert title="File load failed">Could not load file</Alert>
       )}

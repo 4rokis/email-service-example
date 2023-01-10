@@ -15,14 +15,18 @@ type Props = {
 }
 
 export const FileInput: React.FC<Props> = ({ name }) => {
-  const [{ value = [] },,{ setValue , setTouched }] = useField<FileData[]>(name)
+  const [{ value = [] }, , { setValue, setTouched }] =
+    useField<FileData[]>(name)
   const [drag, setDrag] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
 
-  const updateValue = useCallback((data: FileData[]) => {
-    setValue([...value, ...data])
-    setTouched(true)
-  }, [value, setValue])
+  const updateValue = useCallback(
+    (data: FileData[]) => {
+      setValue([...value, ...data])
+      setTouched(true)
+    },
+    [value, setValue],
+  )
 
   const onDragEnter = React.useCallback(
     (ev: React.DragEvent<HTMLInputElement>) => {

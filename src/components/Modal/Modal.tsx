@@ -49,7 +49,7 @@ export const Modal: React.FC<Props> = ({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative w-full transform overflow-hidden bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:max-w-lg sm:rounded-lg sm:p-6">
-                <div className="absolute top-0 right-0 pt-4 pr-4 block">
+                <div className="absolute top-0 right-0 block pt-4 pr-4">
                   <button
                     type="button"
                     className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -59,7 +59,11 @@ export const Modal: React.FC<Props> = ({
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
-                {title && <Dialog.Title className="text-lg text-gray-900">{title}</Dialog.Title>}
+                {title && (
+                  <Dialog.Title className="text-lg text-gray-900">
+                    {title}
+                  </Dialog.Title>
+                )}
                 {children}
               </Dialog.Panel>
             </Transition.Child>
