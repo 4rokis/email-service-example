@@ -4,5 +4,5 @@ export type FileData = {
   name: string
   size: number
   format: string
-  data: string | null
+  data: string[] | null
 }

@@ -10,15 +10,33 @@ const DATA: FileData = {
   name: 'email.txt',
   format: 'plain/text',
   size: 123,
-  data: `slagarde@example.fr
-ucamacho@example.net
-gregoriochacon@example.net`,
+  data: [
+    `slagarde@example.fr`,
+    `ucamacho@example.net`,
+    `gregoriochacon@example.net`,
+  ],
 }
 
-storiesOf('FileInfoModal', module).add('default', () => (
-  <FileInfoModal
-    data={DATA}
-    onClose={action('onClose')}
-    onRemove={action('onRemove')}
-  />
-))
+const NO_DATA: FileData = {
+  id: '1',
+  name: 'email.txt',
+  format: 'plain/text',
+  size: 123,
+  data: null,
+}
+
+storiesOf('FileInfoModal', module)
+  .add('default', () => (
+    <FileInfoModal
+      data={DATA}
+      onClose={action('onClose')}
+      onRemove={action('onRemove')}
+    />
+  ))
+  .add('No data', () => (
+    <FileInfoModal
+      data={NO_DATA}
+      onClose={action('onClose')}
+      onRemove={action('onRemove')}
+    />
+  ))

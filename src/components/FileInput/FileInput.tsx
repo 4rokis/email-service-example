@@ -78,7 +78,7 @@ export const FileInput: React.FC<Props> = ({ inputId, onUpload }) => {
       onDrop={onDrop}
       onDragOver={preventAll}
       onDragLeave={onDragLeave}
-      className="relative flex h-80 w-full flex-col items-center justify-center rounded-md border-gray-300 bg-white pt-9 shadow-sm focus-within:border-indigo-500 focus-within:ring-indigo-500 sm:text-sm"
+      className="relative flex h-36 w-full flex-col items-center justify-center rounded-md bg-gray-50 shadow ring-1 ring-gray-300 focus-within:border-indigo-500 focus-within:ring-indigo-500 sm:text-sm"
     >
       <input
         id={inputId}
@@ -86,6 +86,7 @@ export const FileInput: React.FC<Props> = ({ inputId, onUpload }) => {
         className="absolute inset-0 cursor-pointer opacity-0"
         accept={ACCEPT_TYPE.join(',')}
         type="file"
+        multiple
         onChange={onFileUpload}
       />
       {loading && <Loader />}

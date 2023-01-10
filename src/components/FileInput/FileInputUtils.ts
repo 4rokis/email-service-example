@@ -15,13 +15,18 @@ export const preventAll = (
 export const readFile = async (file: File): Promise<string> => {
   return await new Promise((res) => {
     const reader = new FileReader()
-    reader.onloadend = function (ev) { res(ev.target?.result as string) };
-    reader.readAsText(file); 
+    reader.onloadend = function (ev) {
+      res(ev.target?.result as string)
+    }
+    reader.readAsText(file)
   })
 }
 
-export const countLines = (fileString: string): number => {
-  return fileString.split('\n').length 
+export const splitLines = (fileString: string): string[] => {
+  return fileString
+    .split('\n')
+    .filter((line) => Boolean(line))
+    .map((line) => line.trim())
 }
 
 export const handleFile = async (file: File | null): Promise<FileData> => {
@@ -40,7 +45,7 @@ export const handleFile = async (file: File | null): Promise<FileData> => {
 
   return {
     id: uuidv4(),
-    data: shouldFetchData ? await readFile(file) : null,
+    data: shouldFetchData ? splitLines(await readFile(file)) : null,
     name: file.name,
     format: file.type,
     size: file.size,

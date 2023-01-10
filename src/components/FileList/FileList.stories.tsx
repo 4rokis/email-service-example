@@ -8,40 +8,46 @@ import { FileData } from '@/types'
 const DATA: FileData[] = [
   {
     id: '1',
-    name: 'email.txt',
+    name: 'email-1.txt',
     format: 'plain/text',
     size: 123,
-    data: `slagarde@example.fr
-ucamacho@example.net
-gregoriochacon@example.net`,
+    data: [
+      `slagarde@example.fr`,
+      `ucamacho@example.net`,
+      `gregoriochacon@example.net`,
+    ],
   },
   {
-    id: '1',
-    name: 'email.txt',
+    id: '2',
+    name: 'email-2.txt',
     format: 'plain/text',
     size: 123,
-    data: `slagarde@example.fr
-ucamacho@example.net
-gregoriochacon@example.net`,
+    data: [
+      `slagarde@example.fr`,
+      `ucamacho@example.net`,
+      `gregoriochacon@example.net`,
+    ],
   },
   {
-    id: '1',
-    name: 'email.txt',
+    id: '3',
+    name: 'email-3.txt',
     format: 'plain/text',
     size: 123,
-    data: `slagarde@example.fr
-ucamacho@example.net
-gregoriochacon@example.net`,
+    data: [
+      `slagarde@example.fr`,
+      `ucamacho@example.net`,
+      `gregoriochacon@example.net`,
+    ],
   },
   {
-    id: '1',
-    name: 'email.txt',
+    id: '4',
+    name: 'email-4.txt',
     format: 'plain/text',
     size: 123,
-    data: `slagarde@example.fr
-ucamacho@example.net
-gregoriochacon@example.net`,
+    data: null,
   },
 ]
 
-storiesOf('FileList', module).add('default', () => <FileList data={DATA} onRemove={action('onRemove')} />)
+storiesOf('FileList', module).add('default', () => (
+  <FileList data={DATA} onRemove={action('onRemove')} />
+))

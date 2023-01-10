@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Modal } from '@/components/Modal'
 import { FileData } from '@/types'
+import { Alert } from '../Alert'
 
 type Props = {
   data: FileData | null
@@ -24,9 +25,12 @@ export const FileInfoModal: React.FC<Props> = ({ data: newData, onClose, onRemov
 
   return (
     <Modal open={Boolean(newData)} title={"Emails"} initialFocus={cancelButtonRef} onClose={onClose}>
+      {!data?.data && (
+        <Alert title="File load failed">Could not load file</Alert>
+      )}
       {data?.data && (
         <ul role="list" className="my-6 divide-y divide-gray-200">
-          {data.data.split('\n').map((email) => (
+          {data.data.map((email) => (
             <li key={email} className="flex py-4">
               <div className="ml-3">
                 <p className="text-sm font-medium text-gray-900">{email}</p>
