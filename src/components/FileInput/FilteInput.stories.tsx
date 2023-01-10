@@ -1,7 +1,11 @@
 import * as React from 'react'
 import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
 
 import { FileInput } from './FileInput'
+import { FormikWrap } from 'storyUtils'
 
-storiesOf('FileInput', module).add('default', () => <FileInput inputId='input' onUpload={action('onUpload')} />)
+storiesOf('FileInput', module).add('default', () => (
+  <FormikWrap>
+    <FileInput name="name" />
+  </FormikWrap>
+))

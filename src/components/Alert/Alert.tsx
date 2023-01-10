@@ -2,7 +2,7 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { ReactNode } from 'react'
 
 type Props = {
-  title: string
+  title?: string
   children: ReactNode
 }
 
@@ -18,8 +18,8 @@ export const Alert: React.FC<Props> = ({ children, title }) => {
             />
           </div>
           <div className="ml-3 w-0 flex-1 pt-0.5">
-            <p className="text-sm font-medium text-gray-900">{title}</p>
-            <p className="mt-1 text-sm text-gray-500">{children}</p>
+            {title && <p className="text-sm mb-1 font-medium text-gray-900">{title}</p>}
+            <p className={`text-sm ${title? 'text-gray-500' : 'text-gray-900'}`}>{children}</p>
           </div>
         </div>
       </div>

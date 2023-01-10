@@ -4,6 +4,7 @@ import { action } from '@storybook/addon-actions'
 
 import { FileList } from './FileList'
 import { FileData } from '@/types'
+import { FormikWrap } from 'storyUtils'
 
 const DATA: FileData[] = [
   {
@@ -49,5 +50,7 @@ const DATA: FileData[] = [
 ]
 
 storiesOf('FileList', module).add('default', () => (
-  <FileList data={DATA} onRemove={action('onRemove')} />
+  <FormikWrap>
+    <FileList name="name" />
+  </FormikWrap>
 ))

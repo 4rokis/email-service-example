@@ -25,7 +25,7 @@ export const FileInfoModal: React.FC<Props> = ({ data: newData, onClose, onRemov
 
   return (
     <Modal open={Boolean(newData)} title={"Emails"} initialFocus={cancelButtonRef} onClose={onClose}>
-      {!data?.data && (
+      {(!data?.data || data?.data?.length === 0) && (
         <Alert title="File load failed">Could not load file</Alert>
       )}
       {data?.data && (

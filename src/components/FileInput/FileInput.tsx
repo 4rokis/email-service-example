@@ -1,5 +1,6 @@
 import { FileData } from '@/types'
-import React from 'react'
+import { useField } from 'formik'
+import React, { useCallback } from 'react'
 import { Loader } from '../Loader'
 
 import {
@@ -10,13 +11,18 @@ import {
 } from './FileInputUtils'
 
 type Props = {
-  inputId: string
-  onUpload(data: FileData[]): void
+  name: string
 }
 
-export const FileInput: React.FC<Props> = ({ inputId, onUpload }) => {
+export const FileInput: React.FC<Props> = ({ name }) => {
+  const [{ value = [] },,{ setValue , setTouched }] = useField<FileData[]>(name)
   const [drag, setDrag] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
+
+  const updateValue = useCallback((data: FileData[]) => {
+    setValue([...value, ...data])
+    setTouched(true)
+  }, [value, setValue])
 
   const onDragEnter = React.useCallback(
     (ev: React.DragEvent<HTMLInputElement>) => {
@@ -43,11 +49,11 @@ export const FileInput: React.FC<Props> = ({ inputId, onUpload }) => {
       setDrag(false)
       setLoading(true)
 
-      onUpload(await getDropData(ev))
+      updateValue(await getDropData(ev))
 
       setLoading(false)
     },
-    [onUpload, setDrag, setLoading, loading, getDropData],
+    [updateValue, setDrag, setLoading, loading, getDropData],
   )
 
   const onFileUpload = React.useCallback(
@@ -63,13 +69,14 @@ export const FileInput: React.FC<Props> = ({ inputId, onUpload }) => {
 
       if (data.length === 0) {
         ev.target.value = null as any
+        setLoading(false)
         return
       }
 
-      onUpload(data)
+      updateValue(data)
       setLoading(false)
     },
-    [onUpload, setDrag, setLoading, loading, getUploadData],
+    [updateValue, setDrag, setLoading, loading, getUploadData],
   )
 
   return (
@@ -81,7 +88,7 @@ export const FileInput: React.FC<Props> = ({ inputId, onUpload }) => {
       className="relative flex h-36 w-full flex-col items-center justify-center rounded-md bg-gray-50 shadow ring-1 ring-gray-300 focus-within:border-indigo-500 focus-within:ring-indigo-500 sm:text-sm"
     >
       <input
-        id={inputId}
+        id={name}
         disabled={loading}
         className="absolute inset-0 cursor-pointer opacity-0"
         accept={ACCEPT_TYPE.join(',')}
@@ -89,9 +96,8 @@ export const FileInput: React.FC<Props> = ({ inputId, onUpload }) => {
         multiple
         onChange={onFileUpload}
       />
-      {loading && <Loader />}
-      <div className={`text-center text-sm font-semibold text-gray-800 ${loading ? 'opacity-0' : ''}`}>
-        <label htmlFor={inputId}>Select files</label>
+      <div className={`text-center text-sm font-semibold text-gray-800`}>
+        <label htmlFor={name}>Select files</label>
         <div>{drag ? 'Drop here' : 'or drag photos here'}</div>
       </div>
     </div>

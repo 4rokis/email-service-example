@@ -1,15 +1,20 @@
 import { FileData } from '@/types'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { FileInfoModal } from '../FileInfoModal'
+import { useField, useFormikContext } from 'formik'
 
 type Props = {
-  onRemove: (id: string) => void
-  data: FileData[]
+  name: string
 }
 
-export const FileList: React.FC<Props> = ({ data, onRemove }) => {
+export const FileList: React.FC<Props> = ({ name }) => {
+  const [{ value }, {}, { setValue }] = useField<FileData[]>(name)
   const [more, setMore] = useState<FileData | null>(null)
+  const removeFile = useCallback((id: string) => {
+    setValue(value.filter(({ id: fileId }) => fileId !== id))
+    setMore(null)
+  }, [value, setValue])
 
   return (
     <div className="">
@@ -52,12 +57,12 @@ export const FileList: React.FC<Props> = ({ data, onRemove }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {data.map((item) => (
+                  {value.map((item) => (
                     <tr key={item.id}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 flex items-center">
-                        {!item.data && (
+                      <td className="flex items-center whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                        {!item.data || item.data.length === 0 && (
                           <ExclamationTriangleIcon
-                            className="h-6 w-6 text-yellow-400 mr-2"
+                            className="mr-2 h-6 w-6 text-yellow-400"
                             aria-hidden="true"
                           />
                         )}
@@ -86,10 +91,7 @@ export const FileList: React.FC<Props> = ({ data, onRemove }) => {
               <FileInfoModal
                 data={more}
                 onClose={() => setMore(null)}
-                onRemove={(id) => {
-                  onRemove(id)
-                  setMore(null)
-                }}
+                onRemove={removeFile}
               />
             </div>
           </div>

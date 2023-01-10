@@ -1,36 +1,54 @@
 import { FileInput } from '@/components/FileInput'
 import { FileList } from '@/components/FileList'
-import { Loader } from '@/components/Loader'
+import { Form } from '@/components/Form'
+import { FormError } from '@/components/FormError'
 import { FileData } from '@/types'
-import { EnvelopeIcon } from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
-import { useCallback, useState } from 'react'
+import { array, object } from 'yup'
+
+const MAX_AMOUNT = 100
+const SCHEMA = object().shape({
+  files: array()
+    .max(25, 'Maximum of 25 files allowed')
+    .test(
+      'valid files',
+      'Invalid file uploaded. Please remove the file before continuing.',
+      ((data: FileData[]) => {
+        return !data.some(item => !item.data || item.data.length === 0)
+      }) as any
+    )
+    .test(
+      'email amount',
+      `Maximum of ${MAX_AMOUNT} email adresses allowed`,
+      ((data: FileData[]) => {
+        return data.reduce((res, item) => res + (item.data || []).length, 0) <= MAX_AMOUNT 
+      }) as any
+    ),
+})
+
+const INITIAL_VALUES = {
+  files: [] as FileData[],
+}
+
+type Values = typeof INITIAL_VALUES
 
 const Home: NextPage = () => {
-  const [files, setFiles] = useState<FileData[]>([])
-  const updateFiles = useCallback((data: FileData[]) => {
-    setFiles(prev => [...prev, ...data])
-  }, [setFiles])
-
-  const removeFile = useCallback((id: string) => {
-    setFiles(prev => prev.filter(({ id: fileId }) => fileId !== id))
-  }, [setFiles])
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <h1 className='text-center w-full text-2xl text-gray-900 my-4' >Email sender</h1>
-      <FileInput inputId='file-input' onUpload={updateFiles} />
-      <div className='my-6' />
-      <FileList data={files} onRemove={removeFile} />
-      <div className='w-full flex justify-end mt-8'>
-      <button
-        type="submit"
-        className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+    <div className="mx-auto max-w-4xl py-5 px-4 sm:px-6 lg:px-8">
+      <h1 className="my-4 w-full text-center text-2xl text-gray-900">
+        Email sender
+      </h1>
+      <Form<Values>
+        submitText="Send"
+        initialValues={INITIAL_VALUES}
+        validationSchema={SCHEMA}
+        onSubmit={() => {}}
       >
-        <EnvelopeIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
-        Send
-      </button>
-
-      </div>
+        <FileInput name="files" />
+        <div className="my-6" />
+        <FileList name="files" />
+        <FormError name="files" />
+      </Form>
     </div>
   )
 }
