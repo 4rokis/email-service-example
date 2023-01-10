@@ -50,7 +50,7 @@ const DATA: FileData[] = [
 ]
 
 storiesOf('FileList', module).add('default', () => (
-  <FormikWrap>
+  <FormikWrap values={{ name: DATA }}>
     <FileList name="name" />
   </FormikWrap>
 ))

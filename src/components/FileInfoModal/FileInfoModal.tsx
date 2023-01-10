@@ -68,4 +68,4 @@ export const FileInfoModal: React.FC<Props> = ({
     </Modal>
   )
 }
-Modal.displayName = 'Modal'
+FileInfoModal.displayName = 'FileInfoModal'
