@@ -1,8 +1,11 @@
 import * as React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import { Alert } from './FormError'
+import { FormError } from './FormError'
+import { FormikWrap } from 'storyUtils'
 
-storiesOf('Alert', module).add('default', () => (
-  <Alert title="Alert title">I am an alert!</Alert>
+storiesOf('FormError', module).add('default', () => (
+  <FormikWrap>
+    <FormError name="test" />
+  </FormikWrap>
 ))
