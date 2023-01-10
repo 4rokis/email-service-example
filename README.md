@@ -1,5 +1,9 @@
 ## Email service example
 
+### Links
+[Storybook](https://email-service-example-storybook.vercel.app)   
+[Deployement](https://email-service-example.vercel.app)
+
 ### Getting started
 1. `npm i`
 2. `npm run dev`
