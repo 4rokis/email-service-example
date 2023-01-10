@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.json",
+  "display": "React",
+  "compilerOptions": {
+    "declaration": true,
+    "composite": true,
+    "downlevelIteration": true,
+    "outDir": "./dist",
+    "jsx": "react",
+    "baseUrl": "./src"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "../next-env.d.ts",
+    "../**/*.ts",
+    "../**/*.tsx"
+  ]
+}
+
