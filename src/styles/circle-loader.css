@@ -1,0 +1,55 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .circle-loader {
+    display: inline-block;
+    position: relative;
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  .circle-loader
+  .centered {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .circle-loader>div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0.5rem;
+    border-width: 0.25rem;
+    border-style: solid;
+    border-radius: 50%;
+    border-color: theme('colors.gray.500') transparent transparent transparent;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+
+  .circle-loader>div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+
+  .circle-loader>div:nth-child(1) {
+    animation-delay: -0.3s;
+  }
+
+  .circle-loader>div:nth-child(1) {
+    animation-delay: -0.15s;
+  }
+
+
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

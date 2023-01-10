@@ -7,7 +7,7 @@
     "downlevelIteration": true,
     "outDir": "./dist",
     "jsx": "react",
-    "baseUrl": "./src"
+    "baseUrl": ".."
   },
   "exclude": [
     "node_modules"

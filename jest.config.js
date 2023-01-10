@@ -10,6 +10,7 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|less|sass|scss|png|svg|jpg|jpeg|webp)$':
       '<rootDir>/.jest/styleMock.js',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   globals: {
     'ts-jest': {
